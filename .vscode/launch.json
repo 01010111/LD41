@@ -1,0 +1,36 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Flash",
+			"type": "fdb",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/flash/bin/LD41.swf"
+		},
+		{
+			"name": "Flash (+rebuild)",
+			"type": "fdb",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/flash/bin/LD41.swf",
+			"preLaunchTask": "flash debug (build only)"
+		},
+		{
+			"name": "Windows",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/windows/cpp/bin/LD41.exe"
+		},
+		{
+			"name": "Linux",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/linux64/cpp/bin/LD41"
+		},
+		{
+			"name": "Mac",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/mac64/cpp/bin/LD41.app/Contents/MacOS/LD41"
+		}
+	]
+}
