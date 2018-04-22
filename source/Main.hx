@@ -10,5 +10,6 @@ class Main extends Sprite
 	{
 		super();
 		addChild(new FlxGame(200, 160, PlayState));
+		FlxG.addPostProcess(new flixel.effects.postprocess.PostProcess(AssetsData.fisheye__frag));
 	}
 }

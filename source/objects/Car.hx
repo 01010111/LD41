@@ -1,5 +1,7 @@
 package objects;
 
+import states.PlayState;
+
 class Car extends ThreeDeeObject
 {
 
@@ -12,10 +14,13 @@ class Car extends ThreeDeeObject
 
 	public function new(x, y)
 	{
-		super(FlxPoint.get(x, y), AssetsImg.car__png, 9, true);
+		super(FlxPoint.get(x, y), AssetsImg.car__png, 9, true, true);
 		c = new ZPlayerController(0);
 		c.add();
+		base.angle = -90;
 		base.drag.set(car_drag, car_drag);
+		PlayState.i.car = base;
+		PlayState.i.c = c;
 	}
 
 	override public function update(dt:Float)
