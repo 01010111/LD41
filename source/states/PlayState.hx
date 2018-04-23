@@ -39,7 +39,7 @@ class PlayState extends ZState
 
 		i = this;
 
-		buildings = [ for (i in 0...16) [ for (i in 0...16) 0 ] ];
+		buildings = [ for (i in 0...16) [ for (i in 0...16) -1 ] ];
 		cops = new FlxTypedGroup();
 
 		c = new ZPlayerController(0);
@@ -347,11 +347,17 @@ class PlayState extends ZState
 
 	function get_neighbors(p:IntPoint):Int
 	{
+		var neighbors = [];
+		if (p.y > 0)	neighbors.push(buildings[p.y - 1][p.x]);
+		if (p.y < 15)	neighbors.push(buildings[p.y + 1][p.x]);
+		if (p.x > 0)	neighbors.push(buildings[p.y][p.x - 1]);
+		if (p.x < 15)	neighbors.push(buildings[p.y][p.x + 1]);
+
+		trace(neighbor_type);
+		trace(neighbors);
+
 		var n = 1;
-		if (p.y > 0 && buildings[p.y - 1][p.x] == neighbor_type) n++;
-		if (p.y < 15 && buildings[p.y + 1][p.x] == neighbor_type) n++;
-		if (p.x > 0 && buildings[p.y][p.x - 1] == neighbor_type) n++;
-		if (p.x < 15 && buildings[p.y][p.x + 1] == neighbor_type) n++;
+		for (i in 0...neighbors.length) if (neighbors[i] == neighbor_type) n++;
 		if (n > 1) n *= relationship_type;
 		return n;
 	}
