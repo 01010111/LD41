@@ -11,6 +11,7 @@ class Car extends ThreeDeeObject
 	var car_speed:Float = 80;
 	var car_drag:Float = 500;
 	var cam_lerp:Float = 0.033;
+	var forward_timer:Float = 0.5;
 
 	public function new(x, y)
 	{
@@ -20,14 +21,15 @@ class Car extends ThreeDeeObject
 		base.angle = -90;
 		base.drag.set(car_drag, car_drag);
 		PlayState.i.car = base;
-		PlayState.i.c = c;
+		c = PlayState.c;
 	}
 
 	override public function update(dt:Float)
 	{
+		if (forward_timer > 0) forward_timer -= dt;
 		if (c.state.dpad.l) base.angle -= turn_speed;
 		if (c.state.dpad.r) base.angle += turn_speed;
-		base.velocity.copyFrom(base.angle.vector_from_angle(c.state.face.a ? car_speed * 1.5 : car_speed).to_flx());
+		if (forward_timer <= 0) base.velocity.copyFrom(base.angle.vector_from_angle(c.state.face.a ? car_speed * 1.5 : car_speed).to_flx());
 
 		FlxG.camera.angle += (-base.angle - 90 - FlxG.camera.angle) * cam_lerp;
 

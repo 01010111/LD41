@@ -7,9 +7,9 @@ class PlayState extends ZState
 {
 
 	public static var i:PlayState;
+	public static var ui_cam:FlxCamera;
+	public static var c:ZPlayerController;
 
-	public var ui_cam:FlxCamera;
-	public var c:ZPlayerController;
 	public var car:Slice;
 	public var tiles:FlxTilemap;
 	public var tdo_group:TDOGroup;
@@ -42,6 +42,9 @@ class PlayState extends ZState
 		buildings = [ for (i in 0...16) [ for (i in 0...16) 0 ] ];
 		cops = new FlxTypedGroup();
 
+		c = new ZPlayerController(0);
+		c.add();
+
 		add_ui_cam();
 		add_tiles();
 		add_groups();
@@ -68,7 +71,12 @@ class PlayState extends ZState
 
 		FlxG.camera.angle = 45;
 		ui_cam.active = false;
-		openSubState(new Title());
+
+		FlxG.sound.music = new FlxSound();
+		FlxG.sound.music.loadEmbedded('assets/audio/theme.ogg');
+		FlxG.sound.music.volume = 0.75;
+		FlxG.sound.music.looped = true;
+		FlxG.sound.music.play();
 	}
 
 	function add_car()
@@ -90,7 +98,7 @@ class PlayState extends ZState
 	function add_firestation(p:FlxPoint) new objects.Firehouse(p.x - 12, p.y - 12);
 	function add_tower(p:FlxPoint) new objects.Tower(p.x - 12, p.y - 12);
 
-	function add_ui_cam()
+	public static function add_ui_cam()
 	{
 		ui_cam = new FlxCamera();
 		ui_cam.bgColor = 0x00FFFFFF;
@@ -182,7 +190,7 @@ class PlayState extends ZState
 	{
 		if (!ui_cam.active) ui_cam.active = true;
 		super.update(elapsed);
-		if (done && (c.state.face.a_p || c.state.face.x_p)) FlxG.resetState();
+		if (done && (c.state.face.a_p || c.state.face.x_p)) FlxG.switchState(new Title());
 		FlxG.collide(tiles, car);
 		FlxG.overlap(cops, car, wasted);
 		FlxG.overlap(objective.base, car, get_objective);

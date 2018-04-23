@@ -1,17 +1,20 @@
 package states;
 
-class Title extends FlxSubState
+import states.PlayState;
+
+class Title extends FlxState
 {
 
 	var cam:FlxCamera;
 	var can_leave:Bool = false;
 	var left:Bool = false;
 
-	public function new()
+	override public function create()
 	{
-		super(0xFF000000);
-
-		cam = states.PlayState.i.ui_cam;
+		PlayState.add_ui_cam();
+		PlayState.c = new ZPlayerController(0);
+		PlayState.c.add();
+		cam = PlayState.ui_cam;
 		new FlxTimer().start(0.25, bandit_mayor);
 		new FlxTimer().start(0.75, big_panic);
 		new FlxTimer().start(1.75, little_panic);
@@ -84,25 +87,13 @@ class Title extends FlxSubState
 	override public function update(dt:Float)
 	{
 		super.update(dt);
-		states.PlayState.i.c.update(dt);
-		states.PlayState.i.c.get_joypad().connect();
-		if ((states.PlayState.i.c.state.face.a_p || states.PlayState.i.c.state.face.x_p)) exit();
+		//PlayState.i.c.get_joypad().connect();
+		if ((PlayState.c.state.face.a_p || PlayState.c.state.face.x_p)) exit();
 	}
 
 	function exit()
 	{
-		if (FlxG.sound.music != null) 
-		{
-			return;
-			FlxG.sound.music.volume = 0.75;
-		}
-		FlxG.sound.music = new FlxSound();
-		FlxG.sound.music.loadEmbedded('assets/audio/theme.ogg');
-		FlxG.sound.music.volume = 0.75;
-		FlxG.sound.music.looped = true;
-		FlxG.sound.music.play();
-		left = true;
-		close();
+		FlxG.switchState(new PlayState());
 	}
 
 }

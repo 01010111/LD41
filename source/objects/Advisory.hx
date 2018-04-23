@@ -41,7 +41,7 @@ class Advisory extends FlxGroup
 		FlxTween.tween(request.scale, { x: 0.6, y: 0.6 }, 0.75, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
 		FlxTween.tween(request, { angle: 4 }, 2, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
 
-		for (o in this) o.cameras = [PlayState.i.ui_cam];
+		for (o in this) o.cameras = [PlayState.ui_cam];
 	}
 
 	override public function update(dt:Float)
