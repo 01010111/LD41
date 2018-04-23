@@ -3,7 +3,7 @@ package objects;
 class MinimapIcon extends FlxSprite
 {
 
-	var parent:FlxSprite;
+	public var parent:FlxSprite;
 
 	public function new(parent:FlxSprite, color:Int)
 	{

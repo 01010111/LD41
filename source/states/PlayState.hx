@@ -29,6 +29,7 @@ class PlayState extends ZState
 	public var thumbs:ZBitmapText;
 	public var lives:Int = 3;
 	public var lives_spr:Array<FlxSprite> = [];
+	public var car_icon:MinimapIcon;
 	
 	var done:Bool = false;
 
@@ -84,6 +85,7 @@ class PlayState extends ZState
 		new objects.Car(24 * 3 + 4, 24 * 4 + 4);
 		for (cop in cops) cop.parent.do_ai();
 		FlxG.camera.follow(car);
+		if (car_icon != null) car_icon.parent = car;
 	}
 
 	function add_cop_car(i:Int, j:Int, ai:Int, speed:Float)
@@ -164,7 +166,8 @@ class PlayState extends ZState
 		add_ui_element(minimap_shadow);
 		add_ui_element(minimap);
 
-		add_ui_element(new MinimapIcon(car, 0xFFfc301d));
+		car_icon = new MinimapIcon(car, 0xfffc301d);
+		add_ui_element(car_icon);
 		for (cop in cops) add_ui_element(new MinimapIcon(cop, 0xFF0040ff));
 	}
 
