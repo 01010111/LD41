@@ -11,6 +11,8 @@ class Title extends FlxState
 
 	override public function create()
 	{
+		super.create();
+		bgColor = 0xFF001020;
 		PlayState.add_ui_cam();
 		PlayState.c = new ZPlayerController(0);
 		PlayState.c.add();
@@ -67,7 +69,7 @@ class Title extends FlxState
 		if (left) return;
 		for (i in 0...6)
 		{
-			var s = new FlxSprite(FlxG.width.half() + i * 20 - 50, FlxG.height.half() + 8);
+			var s = new FlxSprite(FlxG.width.half() + i * 20 - 50, FlxG.height.half() + 3);
 			s.loadGraphic(AssetsImg.title__png, true, 9, 10);
 			s.animation.frameIndex = i;
 			s.scale.set();
