@@ -5,7 +5,7 @@ import states.PlayState;
 class ThreeDeeObject extends FlxTypedGroup<Slice>
 {
 
-	public var base:FlxSprite;
+	public var base:Slice;
 	public var offset:Float;
 
 	var tween_time:Float = 0.5;
@@ -32,6 +32,8 @@ class ThreeDeeObject extends FlxTypedGroup<Slice>
 		if (PlayState.i.tiles.overlapsPoint(base.getMidpoint().add(0, 24))) base.angle = 90;
 		base.angle += 90;
 	}
+
+	public function do_ai() {}
 
 	function add_outline(i:Int, p:FlxPoint, g:String)
 	{

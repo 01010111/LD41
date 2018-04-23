@@ -27,7 +27,7 @@ class Car extends ThreeDeeObject
 	{
 		if (c.state.dpad.l) base.angle -= turn_speed;
 		if (c.state.dpad.r) base.angle += turn_speed;
-		if (c.state.bmpr.r || c.state.face.a) base.velocity.copyFrom(base.angle.vector_from_angle(car_speed).to_flx());
+		base.velocity.copyFrom(base.angle.vector_from_angle(c.state.face.a ? car_speed * 1.5 : car_speed).to_flx());
 
 		FlxG.camera.angle += (-base.angle - 90 - FlxG.camera.angle) * cam_lerp;
 

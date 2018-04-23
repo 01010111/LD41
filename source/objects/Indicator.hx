@@ -12,25 +12,39 @@ class Indicator extends FlxGroup
 	{
 		super();
 
+		make_arrow();
+		make_shadow();
+
+		tween();
+
+		add(shadow);
+		add(arrow);
+	}
+
+	function tween()
+	{
+		FlxTween.tween(arrow.scale, { x: 0.75, y: 0.75 }, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
+		FlxTween.tween(shadow.scale, { x: 0.8, y: 0.8 }, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
+	}
+
+	function make_arrow()
+	{
 		arrow = new FlxSprite();
 		arrow.loadGraphic(AssetsImg.indicator__png, true, 32, 32);
 		arrow.animation.add('play', [0, 1, 2, 3, 4, 5], 24);
 		arrow.animation.play('play');
 		arrow.cameras = [FlxG.camera];
 		arrow.offset.set(16, 16);
+	}
 
+	function make_shadow()
+	{
 		shadow = new FlxSprite();
 		shadow.loadGraphic(AssetsImg.indicator__png, true, 32, 32);
 		shadow.color = 0xFF000000;
 		shadow.alpha = 0.33;
 		shadow.cameras = [FlxG.camera];
 		shadow.offset.set(16, 16);
-
-		FlxTween.tween(arrow.scale, { x: 0.75, y: 0.75 }, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
-		FlxTween.tween(shadow.scale, { x: 0.8, y: 0.8 }, 1, { ease: FlxEase.sineInOut, type: FlxTween.PINGPONG });
-
-		add(shadow);
-		add(arrow);
 	}
 
 	override public function update(dt:Float)
