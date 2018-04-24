@@ -22,7 +22,19 @@ class Title extends ZState
 		new FlxTimer().start(0.25, bandit_mayor);
 		new FlxTimer().start(0.75, big_panic);
 		new FlxTimer().start(1.75, little_panic);
-		new FlxTimer().start(2, function(t:FlxTimer){ FlxG.sound.play('assets/audio/outllaw.ogg');});
+		new FlxTimer().start(2.00, completed);
+	}
+
+	function completed(t:FlxTimer)
+	{
+		FlxG.sound.play('assets/audio/outllaw.ogg');
+		var t = new ZBitmapText(0, FlxG.height - 16, Assets.getText(AssetsData.letters__txt), FlxPoint.get(7, 9), AssetsImg.font__png, FlxTextAlign.CENTER, FlxG.width, -2, -1);
+		t.scale.set();
+		t.text = 'press X to start!';
+		t.scrollFactor.set(1, 1);
+		FlxTween.tween(t.scale, { x: 0.75, y: 0.75 }, 0.4, { ease: FlxEase.elasticOut });
+		t.cameras = [cam];
+		add(t);
 	}
 
 	function bandit_mayor(t:FlxTimer)
