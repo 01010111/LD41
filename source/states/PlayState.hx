@@ -103,6 +103,9 @@ class PlayState extends ZState
 	public static function add_ui_cam()
 	{
 		ui_cam = new FlxCamera();
+		ui_cam.setSize((FlxG.width * 1.5).floor(), (FlxG.height * 1.5).floor());
+		ui_cam.setPosition(-FlxG.width * 0.25, -FlxG.height * 0.25);
+		ui_cam.scroll.set(-FlxG.width * 0.25, -FlxG.height * 0.25);
 		ui_cam.bgColor = 0x00FFFFFF;
 		FlxG.cameras.add(ui_cam);
 	}
@@ -136,11 +139,13 @@ class PlayState extends ZState
 		for (cop in cops) add(new Siren(cop));
 		add(new Indicator());
 		score_text = new ZBitmapText(0, 10, Assets.getText(AssetsData.letters__txt), FlxPoint.get(7, 9), AssetsImg.font__png, FlxTextAlign.CENTER, FlxG.width);
+		score_text.scrollFactor.set(1, 1);
 		add_ui_element(score_text);
 		make_minimap();
 		add_ui_element(new Advisory());
 		thumbs = new ZBitmapText(0, 16, 'TRBHFUD901', FlxPoint.get(24, 31), AssetsImg.object_icons__png, FlxTextAlign.CENTER, FlxG.width);
 		thumbs.scale.set();
+		thumbs.scrollFactor.set(1, 1);
 		add_ui_element(thumbs);
 		for (i in 0...lives)
 		{
@@ -232,6 +237,7 @@ class PlayState extends ZState
 		var text = new ZBitmapText(0.get_random(0, FlxG.width - 64), FlxG.height.get_random(0), Assets.getText(AssetsData.letters__txt), FlxPoint.get(7, 9), AssetsImg.font__png, FlxTextAlign.CENTER, 64, -2, -1);
 		text.text = t;
 		text.color = c;
+		text.scrollFactor.set(1, 1);
 		add_ui_element(text);
 		FlxG.sound.play('assets/audio/pop.ogg');
 		text.scale.set();
@@ -248,6 +254,7 @@ class PlayState extends ZState
 		var text = new ZBitmapText(0, (i * 16) % FlxG.height, Assets.getText(AssetsData.letters__txt), FlxPoint.get(7, 9), AssetsImg.font__png, FlxTextAlign.CENTER, FlxG.width, -2, -1);
 		text.text = 'SCORE: $score';
 		text.color = c;
+		text.scrollFactor.set(1, 1);
 		add_ui_element(text);
 
 		text.scale.set();

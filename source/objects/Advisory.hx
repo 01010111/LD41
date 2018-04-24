@@ -23,6 +23,7 @@ class Advisory extends FlxGroup
 		bubble = new FlxSprite(FlxG.width - 128, FlxG.height + 40, AssetsImg.bubble__png);
 
 		request = new ZBitmapText(FlxG.width - 128, FlxG.height + 40, 'TRBHFUD901', FlxPoint.get(24, 31), AssetsImg.object_icons__png, FlxTextAlign.CENTER, 100);
+		request.scrollFactor.set(1, 1);
 
 		add(man);
 		add(bubble);

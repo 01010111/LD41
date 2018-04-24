@@ -2,7 +2,7 @@ package states;
 
 import states.PlayState;
 
-class Title extends FlxState
+class Title extends ZState
 {
 
 	var cam:FlxCamera;
@@ -13,6 +13,8 @@ class Title extends FlxState
 	{
 		super.create();
 		bgColor = 0xFF001020;
+		FlxG.camera.setSize(FlxG.width * 2, FlxG.height * 2);
+		FlxG.camera.setPosition(-FlxG.width.half(), -FlxG.height.half());
 		PlayState.add_ui_cam();
 		PlayState.c = new ZPlayerController(0);
 		PlayState.c.add();
@@ -30,6 +32,7 @@ class Title extends FlxState
 		var t = new ZBitmapText(FlxG.width + 32, FlxG.height.half() - 16, Assets.getText(AssetsData.letters__txt), FlxPoint.get(7, 9), AssetsImg.font__png, FlxTextAlign.CENTER, FlxG.width, -2, -1);
 		t.text = 'OUTLAW MAYOR';
 		t.scale.set(1.5, 1.5);
+		t.scrollFactor.set(1, 1);
 		FlxTween.tween(t, { x: 0 }, 0.5, { ease: FlxEase.elasticOut });
 		t.cameras = [cam];
 		add(t);
